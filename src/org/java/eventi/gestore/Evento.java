@@ -59,7 +59,9 @@ public class Evento {
 
 // metodi
 
-    public
+    public int prenota (){
+
+    }
 
     @Override
     public String toString() {
