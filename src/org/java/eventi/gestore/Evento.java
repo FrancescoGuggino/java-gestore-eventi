@@ -9,7 +9,7 @@ public class Evento {
     private String titolo;
     private LocalDate data;
     private int postiTotali;
-    private int postiDisponibili;
+    private int postiRiservati;
 
     // costruttore
 
@@ -27,7 +27,7 @@ public class Evento {
         this.titolo = titolo;
         this.data = data;
         this.postiTotali = postiTotali;
-        this.postiDisponibili = 0;
+        this.postiRiservati = 0;
     }
 
 
@@ -53,14 +53,39 @@ public class Evento {
         return postiTotali;
     }
 
-    public int getPostiDisponibili() {
-        return postiDisponibili;
+    public int getPostiRiservati() {
+        return postiRiservati;
     }
 
 // metodi
 
-    public int prenota (){
+    public int postiDisponibili(){
+        return postiTotali - postiRiservati;
+    }
 
+    public void postiRiservati (int numeroPosti) throws RuntimeException{
+
+        if (numeroPosti > postiDisponibili()) {
+            throw new RuntimeException("Posti non Disponibili!");
+        }
+        if (data.isBefore(LocalDate.now())){
+            throw new RuntimeException("data non valida!");
+        }
+
+        postiRiservati = postiRiservati + numeroPosti;
+
+    }
+
+    public void disdici (int numeroPosti) throws RuntimeException{
+
+        if (postiRiservati < numeroPosti){
+            throw new RuntimeException("Posti da disdire non diponibili!");
+        }
+        if (data.isBefore(LocalDate.now())){
+            throw new RuntimeException("data non valida!");
+        }
+
+        postiRiservati = postiRiservati - numeroPosti;
     }
 
     @Override
@@ -69,7 +94,7 @@ public class Evento {
                 "titolo='" + titolo + '\'' +
                 ", data=" + data +
                 ", postiTotali=" + postiTotali +
-                ", postiDisponibili=" + postiDisponibili +
+                ", postiDisponibili=" + postiRiservati +
                 '}';
     }
 }

@@ -22,8 +22,11 @@ public class Main {
             System.out.println("Titolo: " + evento.getTitolo());
             System.out.println("Data: " + evento.getData());
             System.out.println("Posti totali: " + evento.getPostiTotali());
-            System.out.println("Posti prenotati: " + evento.getPostiDisponibili());
+            System.out.println("Posti prenotati: " + evento.getPostiRiservati());
 
+            System.out.println("Quanti posti vuoi prenotare ?");
+            int postiRiservati = scanner.nextInt();
+            evento.postiRiservati(postiRiservati);
 
         } catch (RuntimeException exception){
             System.out.println("Errore!");
